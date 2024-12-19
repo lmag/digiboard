@@ -99,7 +99,7 @@ class DigiboardDashboard
         $arrayDigiRiskStatsList = [];
         $filter                 = '';
         $riskAssessmentCotation = [1 => 'GreyRisk', 2 => 'OrangeRisk', 3 => 'RedRisk', 4 => 'BlackRisk'];
-        $sharingEntities        = $mc->sharings['digiriskstats'];
+        $sharingEntities        = $mc->sharings['digiriskstats'] ?? [];
         $entities               = $mc->getEntitiesList(false, false, true);
         if (!empty($sharingEntities)) {
             $currentEntity[]           = 1;
@@ -138,7 +138,7 @@ class DigiboardDashboard
                 for ($i = 1; $i <= 4; $i++) {
                     if ($i == 4) {
                         $percent                                                                  = $getRisksByCotation[$i] > 0 ? round($getRisksByCotation[$i] * 100 / array_sum($getRisksByCotation), 1) : 0;
-                        $arrayDigiRiskStatsList[$entityID][$riskAssessmentCotation[$i]]['value'] .= "
+                        $arrayDigiRiskStatsList[$entityID][$riskAssessmentCotation[$i]]['value']  = "
                             <div class='flex justify-center items-center' style='gap: 0.2em;'>
                                 <span class='width50p right'>$getRisksByCotation[$i]</span>
                                 <span class='width50p left' style='font-size: 0.75em;'>($percent%)</span>
