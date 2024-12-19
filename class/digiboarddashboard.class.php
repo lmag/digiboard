@@ -75,7 +75,7 @@ class DigiboardDashboard
 
         // Graph parameters
         $array['type']   = 'list';
-        $array['labels'] = ['Site', 'Siret', 'RiskAssessmentDocument', 'DelayGenerateDate', 'NbEmployees', 'NbEmployeesInvolved', 'GreyRisk', 'OrangeRisk', 'RedRisk', 'BlackRisk'];
+        $array['labels'] = ['Site', 'Siret', 'RiskAssessmentDocument', 'NextGenerateDate', 'DelayGenerateDate', 'NbEmployees', 'NbEmployeesInvolved', 'GreyRisk', 'OrangeRisk', 'RedRisk', 'BlackRisk'];
         if (getDolGlobalInt('DIGIBOARD_DIGIRISIK_STATS_LOAD_ACCIDENT') > 0) {
             $array['labels'][] = ['NbPresquAccidents', 'NbAccidents', 'NbAccidentsByEmployees', 'NbAccidentInvestigations', 'WorkStopDays', 'FrequencyIndex', 'FrequencyRate', 'GravityRate'];
         }
@@ -123,6 +123,7 @@ class DigiboardDashboard
                 $moreParam['filter']                                                  = $filterEntity;
                 $arrayGetGenerationDateInfos                                          = $riskAssessmentDocument->getGenerationDateInfos($moreParam);
                 $arrayDigiRiskStatsList[$entityID]['RiskAssessmentDocument']['value'] = $arrayGetGenerationDateInfos['lastgeneratedate'] . $arrayGetGenerationDateInfos['moreContent'];
+                $arrayDigiRiskStatsList[$entityID]['NextGenerateDate']['value']       = $arrayGetGenerationDateInfos['nextgeneratedate'];
                 $arrayDigiRiskStatsList[$entityID]['DelayGenerateDate']['value']      = $arrayGetGenerationDateInfos['delaygeneratedate'];
 
                 $moreParam['filter']                                               = ' AND u.entity IN (0,' . $entityID . ')';
@@ -175,17 +176,14 @@ class DigiboardDashboard
                 }
             }
 
-            $totalValue                         = ['Site' => ['value' => $langs->transnoentities('Total'), 'morecss' => 'bold'], 'Siret' => ['value' => ''], 'RiskAssessmentDocument' => ['value' => ''], 'DelayGenerateDate' => ['value' => ''], 'NbEmployees' => ['value' => ''], 'NbEmployeesInvolved' => ['value' => '']];
+            $totalValue                         = ['Site' => ['value' => $langs->transnoentities('Total'), 'morecss' => 'bold']];
             $totalValue['NbEmployees']['value'] = $total['nbEmployees'];
             for ($i = 1; $i <= 4; $i++) {
                 $totalValue[$riskAssessmentCotation[$i]]['value']    = $total[$i];
                 $totalValue[$riskAssessmentCotation[$i]]['morecss']  = 'risk-evaluation-cotation';
                 $totalValue[$riskAssessmentCotation[$i]]['moreAttr'] = 'data-scale=' . $i . ' style="line-height: 0; border-radius: 0;"';
             }
-            if (getDolGlobalInt('DIGIBOARD_DIGIRISIK_STATS_LOAD_ACCIDENT')) {
-                $totalValue = array_merge($totalValue, ['NbPresquAccidents' => ['value' => ''], 'NbAccidents' => ['value' => ''], 'NbAccidentsByEmployees' => ['value' => ''], 'NbAccidentInvestigations' => ['value' => ''], 'WorkStopDays' => ['value' => ''], 'FrequencyIndex' => ['value' => ''], 'FrequencyRate' => ['value' => ''], 'GravityRate' => ['value' => '']]);
-            }
-            $arrayDigiRiskStatsList[] = $totalValue;
+            $arrayDigiRiskStatsList['Total'] = $totalValue;
         }
         $array['data'] = $arrayDigiRiskStatsList;
 
