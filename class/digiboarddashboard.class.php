@@ -79,6 +79,9 @@ class DigiboardDashboard
         if (getDolGlobalInt('DIGIBOARD_DIGIRISIK_STATS_LOAD_ACCIDENT') > 0) {
             $array['labels'][] = ['NbPresquAccidents', 'NbAccidents', 'NbAccidentsByEmployees', 'NbAccidentInvestigations', 'WorkStopDays', 'FrequencyIndex', 'FrequencyRate', 'GravityRate'];
         }
+        foreach ($array['labels'] as $key => $label) {
+            $array['labels'][$key] = $langs->transnoentities($label);
+        }
 
         require_once __DIR__ . '/../../digiriskdolibarr/class/digiriskdolibarrdocuments/riskassessmentdocument.class.php';
         require_once __DIR__ . '/../../digiriskdolibarr/class/evaluator.class.php';
@@ -104,7 +107,7 @@ class DigiboardDashboard
         if (!empty($sharingEntities)) {
             $currentEntity[]           = 1;
             $sharingEntitiesAndCurrent = array_unique(array_merge($currentEntity, $sharingEntities));
-            $filter                    = 'AND t.fk_element NOT IN' . $digiriskElement->getTrashExclusionSqlFilter();
+            $filter                    = ' AND t.fk_element NOT IN ' . $digiriskElement->getTrashExclusionSqlFilter();
         }
 
         if (!empty($entities)) {
@@ -171,8 +174,8 @@ class DigiboardDashboard
                     $arrayDigiRiskStatsList[$entityID]['NbAccidentInvestigations']['value'] = $accident->getNbAccidentInvestigations($moreParam)['nbaccidentinvestigations'];
                     $arrayDigiRiskStatsList[$entityID]['WorkStopDays']['value']             = $accident->getNbWorkstopDays($accidentsWithWorkStops)['nbworkstopdays'];
                     $arrayDigiRiskStatsList[$entityID]['FrequencyIndex']['value']           = $accident->getFrequencyIndex($accidentsWithWorkStops, $employees)['frequencyindex'];
-                    $arrayDigiRiskStatsList[$entityID]['FrequencyRate']['value']            = $accident->getFrequencyRate($employees)['frequencyrate'];
-                    $arrayDigiRiskStatsList[$entityID]['GravityRate']['value']              = $accident->getGravityRate($employees)['gravityrate'];
+                    $arrayDigiRiskStatsList[$entityID]['FrequencyRate']['value']            = $accident->getFrequencyRate($accidentsWithWorkStops)['frequencyrate'];
+                    $arrayDigiRiskStatsList[$entityID]['GravityRate']['value']              = $accident->getGravityRate($accidentsWithWorkStops)['gravityrate'];
                 }
             }
 
