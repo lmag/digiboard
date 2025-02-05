@@ -23,6 +23,7 @@ ModuleDigiBoardDesc      = Tableau de bord pour les applications DigiRisk, DigiQ
 DigiBoardDescription     = Tableau de bord pour les applications DigiRisk, DigiQuali et bien plus ...
 DigiBoardDescriptionLong = Tableau de bord pour les applications DigiRisk, DigiQuali et bien plus ...
 EnableDigiBoard          = Veuillez activer le module DigiBoard pour accéder à cette page
+TotalRisk                = Risque total
 
 # MultiCompany - MultiCompany
 ShareDigiriskstats              = Activer le partage des statistiques de DigiRisk
