@@ -102,18 +102,19 @@ class DigiboardDashboard
         $arrayDigiRiskStatsList = [];
         $filter                 = '';
         $riskAssessmentCotation = [1 => 'GreyRisk', 2 => 'OrangeRisk', 3 => 'RedRisk', 4 => 'BlackRisk'];
+        $entities               = [];
         $sharingEntities        = $mc->sharings['digiriskstats'] ?? [];
-        $entities               = $mc->getEntitiesList(false, false, true);
         if (!empty($sharingEntities)) {
+            $entities                  = $mc->getEntitiesList(false, false, true);
             $currentEntity[]           = 1;
             $sharingEntitiesAndCurrent = array_unique(array_merge($currentEntity, $sharingEntities));
             $filter                    = ' AND t.fk_element NOT IN ' . $digiriskElement->getTrashExclusionSqlFilter();
         }
 
-        if (!empty($entities)) {
+        if (!empty($entities) && !empty($sharingEntitiesAndCurrent)) {
             $total = [1 => 0, 2 => 0, 3 => 0, 4 => 0, 'nbEmployees' => 0];
             foreach ($entities as $entityID => $entityName) {
-                if (!empty($sharingEntitiesAndCurrent) && !in_array($entityID, $sharingEntitiesAndCurrent)) {
+                if (!in_array($entityID, $sharingEntitiesAndCurrent)) {
                     continue;
                 }
 
