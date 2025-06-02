@@ -137,14 +137,16 @@ class DigiboardDashboard
                 $arrayDigiRiskStatsList[$entityID]['NbEmployeesInvolved']['value'] = $evaluator->getNbEmployeesInvolved($moreParam)['nbemployeesinvolved'];
                 $total['nbEmployees'] += $employees['nbemployees'];
 
-                $moreParam['filter']                = $filter . $filterEntity;
-                $moreParam['multiEntityManagement'] = false;
-                $getRisksByCotation = $risk->getRisksByCotation($moreParam)['data'];
+                $dangerCategories                         = Risk::getDangerCategories();
+                $moreParam['filterEntity']                = $filterEntity;
+                $riskByDangerCategoriesAndRiskAssessments = $risk->getRiskByDangerCategoriesAndRiskAssessments($dangerCategories, 'risk', $moreParam);
+
+                $getRisksByCotation = $risk->getRisksByCotation($riskByDangerCategoriesAndRiskAssessments)['data'];
                 for ($i = 1; $i <= 4; $i++) {
                     $percent                                                                 = $getRisksByCotation[$i] > 0 ? round($getRisksByCotation[$i] * 100 / array_sum($getRisksByCotation), 1) : 0;
                     $arrayDigiRiskStatsList[$entityID][$riskAssessmentCotation[$i]]['value'] = "
                         <div class='flex flex-col justify-center' style='padding-top: 10px;'>
-                            <div style='height: 1em'>$getRisksByCotation[$i]</div>
+                            <div style='height: 1em'>" . ($getRisksByCotation[$i] ?? 0) . "</div>
                             <div style='font-size: 0.75em; height: 0.75em;'>($percent%)</div>
                         </div>
                     ";
