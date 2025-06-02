@@ -132,7 +132,7 @@ class DigiboardDashboard
 
                 $moreParam['filter']                                               = ' AND u.entity IN (0,' . $entityID . ')';
                 $employees                                                         = $evaluator->getNbEmployees($moreParam);
-                $moreParam['filter']                                               = 't.entity = ' . $entityID;
+                $moreParam['filter']                                               = $filterEntity;
                 $arrayDigiRiskStatsList[$entityID]['NbEmployees']['value']         = $employees['nbemployees'];
                 $arrayDigiRiskStatsList[$entityID]['NbEmployeesInvolved']['value'] = $evaluator->getNbEmployeesInvolved($moreParam)['nbemployeesinvolved'];
                 $total['nbEmployees'] += $employees['nbemployees'];
