@@ -171,8 +171,8 @@ class DigiboardDashboard
 
                 $arrayDigiRiskStatsList[$entityID][$riskAssessmentCotation[$i]]['value'] = "
                     <div class='flex flex-col justify-center' style='padding-top: 10px;'>
-                        <div style='height: 1em'>{$nbRiskByCotations[$i]}</div>
-                        <div style='font-size: 0.75em; height: 0.75em;'>({$percent}%)</div>
+                        <div style='height: 1em'>$nbRiskByCotations[$i]</div>
+                        <div style='font-size: 0.75em; height: 0.75em;'>($percent%)</div>
                     </div>
                 ";
 
@@ -218,8 +218,8 @@ class DigiboardDashboard
 
             $totalValue[$riskAssessmentCotation[$i]]['value'] = "
                   <div class='flex flex-col justify-center' style='padding-top: 10px;'>
-                        <div style='height: 1em'>{$total[$i]}</div>
-                        <div style='font-size: 0.75em; height: 0.75em;'>({$percent}%)</div>
+                        <div style='height: 1em'>$total[$i]</div>
+                        <div style='font-size: 0.75em; height: 0.75em;'>($percent%)</div>
                   </div>
             ";
 
