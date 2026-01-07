@@ -99,7 +99,7 @@ class DigiboardDashboard
 
         // Graph parameters
         $array['type']   = 'list';
-        $array['labels'] = ['Site', 'Siret', 'RiskAssessmentDocument', 'NextGenerateDate', 'DelayGenerateDate', 'NbEmployees', 'NbEmployeesInvolved', 'GreyRisk', 'OrangeRisk', 'RedRisk', 'BlackRisk', 'TotalRisk'];
+        $array['labels'] = ['Site', 'SIRET', 'RiskAssessmentDocument', 'NextGenerateDate', 'DelayGenerateDate', 'NbEmployees', 'NbEmployeesInvolved', 'GreyRisk', 'OrangeRisk', 'RedRisk', 'BlackRisk', 'TotalRisk'];
         if (getDolGlobalInt('DIGIBOARD_DIGIRISIK_STATS_LOAD_ACCIDENT')) {
             $array['labels'][] = ['NbPresquAccidents', 'NbAccidents', 'NbAccidentsByEmployees', 'NbAccidentInvestigations', 'WorkStopDays', 'FrequencyIndex', 'FrequencyRate', 'GravityRate'];
 
