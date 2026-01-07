@@ -100,4 +100,23 @@ class ActionsDigiboard
 
         return 0; // or return 1 to replace standard code
     }
+
+    /**
+     * Overloading the checkSecureAccess function : replacing the parent's function with the one below
+     *
+     * @param  array $parameters Hook metadata (context, etc...)
+     * @return int               0 < on error, 0 on success, 1 to replace standard code
+     */
+    public function checkSecureAccess(array $parameters): int
+    {
+        if (strpos($parameters['context'], 'main') !== false) {
+            if ($parameters['modulepart'] == 'digiriskdolibarr' && strpos($_SERVER['HTTP_REFERER'], dol_buildpath('custom/digiboard/index.php', 1) != false)) {
+                $filePath                       = preg_split('/' . $parameters['modulepart'] . '/', $parameters['original_file']);
+                $this->results['original_file'] = $filePath[0] . $parameters['entity'] . '/' . $parameters['modulepart'] . $filePath[1];
+                return 1;
+            }
+        }
+
+        return 0; // or return 1 to replace standard code
+    }
 }

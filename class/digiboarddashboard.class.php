@@ -130,6 +130,7 @@ class DigiboardDashboard
         $arrayDigiRiskStatsList = [];
         $riskAssessmentCotation = [1 => 'GreyRisk', 2 => 'OrangeRisk', 3 => 'RedRisk', 4 => 'BlackRisk'];
         $total                  = ['nbEmployees' => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 'totalRisks' => 0];
+        $dangerCategories       = Risk::getDangerCategories();
         foreach ($entities as $entityID => $entityName) {
             if (!in_array($entityID, $sharingEntitiesAndCurrent)) {
                 continue;
@@ -154,7 +155,6 @@ class DigiboardDashboard
             $arrayDigiRiskStatsList[$entityID]['NbEmployeesInvolved']['value'] = $evaluator->getNbEmployeesInvolved($moreParam)['nbemployeesinvolved'];
             $total['nbEmployees'] += $employees['nbemployees'];
 
-            $dangerCategories                         = Risk::getDangerCategories();
             $moreParam['filterEntity']                = $filterEntity;
             $riskByDangerCategoriesAndRiskAssessments = $risk->getRiskByDangerCategoriesAndRiskAssessments($dangerCategories, 'risk', $moreParam);
             if (empty($riskByDangerCategoriesAndRiskAssessments)) {
