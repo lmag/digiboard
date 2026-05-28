@@ -78,7 +78,7 @@ class modDigiBoard extends DolibarrModules
         $this->editor_url  = 'https://evarisk.com';
 
         // Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated' or a version string like 'x.y.z'
-        $this->version = '1.0.0';
+        $this->version = '23.0.0';
 
         // Url to the file with your last numberversion of this module
         //$this->url_last_version = 'http://www.example.com/versionmodule.txt';
@@ -118,7 +118,8 @@ class modDigiBoard extends DolibarrModules
             'js' => [],
             // Set here all hooks context managed by module. To find available hook context, make a "grep -r '>initHooks(' *" on source code. You can also set hook context to 'all'
             'hooks' => [
-                'digiboardindex'
+                'digiboardindex',
+                'main'
             ],
             // Set this to 1 if features of module are opened to external users
             'moduleforexternal' => 0
